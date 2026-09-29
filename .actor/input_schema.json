@@ -1,0 +1,53 @@
+{
+    "title": "FOMC Meetings & Fed Policy Input",
+    "type": "object",
+    "schemaVersion": 1,
+    "properties": {
+        "targetYear": {
+            "title": "Target Calendar Year",
+            "type": "integer",
+            "description": "The target year for FOMC schedule meetings (e.g. 2026, 2025).",
+            "default": 2026,
+            "minimum": 2020,
+            "maximum": 2030
+        },
+        "includeHistoricalRates": {
+            "title": "Include Full Fed Target Rate History",
+            "type": "boolean",
+            "description": "Fetch historical Federal Funds Target and Effective rate history from FRED.",
+            "default": true
+        },
+        "includeFedWatchProbabilities": {
+            "title": "Include CME FedWatch Rate Probabilities",
+            "type": "boolean",
+            "description": "Calculate market-implied rate hike/cut probability distributions for upcoming sessions.",
+            "default": true
+        },
+        "includeDecisionDayAssetOverlays": {
+            "title": "Include Decision Day Market Reaction Overlays",
+            "type": "boolean",
+            "description": "Analyze exact day-of-decision price moves across equities, crypto, commodities, and yields.",
+            "default": true
+        },
+        "assetsToAnalyze": {
+            "title": "Assets for Decision-Day Reaction",
+            "type": "array",
+            "description": "Tickers to compute returns for on FOMC decision Wednesdays.",
+            "editor": "json",
+            "prefill": ["SPY", "BTC-USD", "GC=F", "^TNX"],
+            "default": ["SPY", "BTC-USD", "GC=F", "^TNX"]
+        },
+        "includeStatementTexts": {
+            "title": "Scrape Latest Statement Paragraphs",
+            "type": "boolean",
+            "description": "Extract full clean text paragraphs from recent Federal Reserve monetary policy press releases.",
+            "default": true
+        },
+        "includeFedLiquidityBalanceSheet": {
+            "title": "Include Fed Balance Sheet & Net Liquidity",
+            "type": "boolean",
+            "description": "Track Fed Total Assets (WALCL), Reverse Repo (WLRRAL), Treasury General Account (WDTGAL), and Net Liquidity (QT/QE).",
+            "default": true
+        }
+    }
+}
