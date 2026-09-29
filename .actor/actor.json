@@ -1,0 +1,16 @@
+{
+    "actorSpecification": 1,
+    "name": "fomc-meetings-policy",
+    "title": "FOMC Meetings & Fed Policy Intelligence",
+    "description": "Federal Reserve FOMC meeting schedules, Fed Funds target rates, CME FedWatch implied probabilities, decision-day asset reactions, statement text extraction, and Fed Net Liquidity balance sheet (QT/QE).",
+    "version": "1.0",
+    "meta": {
+        "template": "python-empty"
+    },
+    "dockerfile": "../Dockerfile",
+    "input": "./input_schema.json",
+    "storages": {
+        "dataset": "./dataset_schema.json"
+    },
+    "output": "./output_schema.json"
+}
