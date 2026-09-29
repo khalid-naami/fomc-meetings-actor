@@ -1,0 +1,12 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "FOMC Meetings & Fed Policy Output",
+    "properties": {
+        "dataset": {
+            "type": "string",
+            "title": "Dataset link",
+            "description": "Direct link to the dataset containing FOMC meeting intelligence, rate histories, and probability paths.",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}
