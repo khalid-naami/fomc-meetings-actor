@@ -1,0 +1,129 @@
+{
+    "actorSpecification": 1,
+    "fields": {
+        "type": "object",
+        "properties": {
+            "recordType": {
+                "type": "string",
+                "title": "Record Type"
+            },
+            "meetingDates": {
+                "type": "string",
+                "title": "Meeting Dates"
+            },
+            "meetingStartDate": {
+                "type": "string",
+                "title": "Start Date"
+            },
+            "hasSepProjections": {
+                "type": "boolean",
+                "title": "Has SEP Projections"
+            },
+            "status": {
+                "type": "string",
+                "title": "Status"
+            },
+            "daysRemaining": {
+                "type": "integer",
+                "title": "Days Remaining"
+            },
+            "currentFedRate": {
+                "type": "number",
+                "title": "Current Fed Rate (%)"
+            },
+            "lastChangeBps": {
+                "type": "number",
+                "title": "Last Change (bps)"
+            },
+            "lastChangeDate": {
+                "type": "string",
+                "title": "Last Change Date"
+            },
+            "impliedPauseProbPct": {
+                "type": "number",
+                "title": "Pause Prob (%)"
+            },
+            "impliedCut25ProbPct": {
+                "type": "number",
+                "title": "Cut 25 bps Prob (%)"
+            },
+            "impliedCut50ProbPct": {
+                "type": "number",
+                "title": "Cut 50+ bps Prob (%)"
+            },
+            "statementHtml": {
+                "type": "string",
+                "title": "Statement URL"
+            },
+            "statementPdf": {
+                "type": "string",
+                "title": "PDF URL"
+            }
+        }
+    },
+    "views": {
+        "overview": {
+            "title": "FOMC Meetings Overview",
+            "description": "Overview of Federal Reserve meeting schedules, SEP dot plot sessions, countdowns, and FedWatch rate cut probabilities.",
+            "transformation": {
+                "fields": [
+                    "meetingDates",
+                    "meetingStartDate",
+                    "status",
+                    "daysRemaining",
+                    "hasSepProjections",
+                    "currentFedRate",
+                    "impliedPauseProbPct",
+                    "impliedCut25ProbPct",
+                    "impliedCut50ProbPct",
+                    "statementHtml"
+                ]
+            },
+            "display": {
+                "component": "table",
+                "columns": {
+                    "meetingDates": {
+                        "label": "Meeting Dates",
+                        "format": "text"
+                    },
+                    "meetingStartDate": {
+                        "label": "Date",
+                        "format": "text"
+                    },
+                    "status": {
+                        "label": "Status",
+                        "format": "text"
+                    },
+                    "daysRemaining": {
+                        "label": "Days Left",
+                        "format": "number"
+                    },
+                    "hasSepProjections": {
+                        "label": "SEP Dot Plot",
+                        "format": "boolean"
+                    },
+                    "currentFedRate": {
+                        "label": "Fed Rate %",
+                        "format": "percentage"
+                    },
+                    "impliedPauseProbPct": {
+                        "label": "Pause %",
+                        "format": "percentage"
+                    },
+                    "impliedCut25ProbPct": {
+                        "label": "Cut 25bps %",
+                        "format": "percentage"
+                    },
+                    "impliedCut50ProbPct": {
+                        "label": "Cut 50bps %",
+                        "format": "percentage"
+                    },
+                    "statementHtml": {
+                        "label": "Statement Link",
+                        "format": "link"
+                    }
+                }
+            }
+        }
+    }
+}
