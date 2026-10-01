@@ -1,66 +1,8 @@
 {
     "actorSpecification": 1,
-    "fields": {
-        "type": "object",
-        "properties": {
-            "recordType": {
-                "type": "string",
-                "title": "Record Type"
-            },
-            "meetingDates": {
-                "type": "string",
-                "title": "Meeting Dates"
-            },
-            "meetingStartDate": {
-                "type": "string",
-                "title": "Start Date"
-            },
-            "hasSepProjections": {
-                "type": "boolean",
-                "title": "Has SEP Projections"
-            },
-            "status": {
-                "type": "string",
-                "title": "Status"
-            },
-            "daysRemaining": {
-                "type": "integer",
-                "title": "Days Remaining"
-            },
-            "currentFedRate": {
-                "type": "number",
-                "title": "Current Fed Rate (%)"
-            },
-            "lastChangeBps": {
-                "type": "number",
-                "title": "Last Change (bps)"
-            },
-            "lastChangeDate": {
-                "type": "string",
-                "title": "Last Change Date"
-            },
-            "impliedPauseProbPct": {
-                "type": "number",
-                "title": "Pause Prob (%)"
-            },
-            "impliedCut25ProbPct": {
-                "type": "number",
-                "title": "Cut 25 bps Prob (%)"
-            },
-            "impliedCut50ProbPct": {
-                "type": "number",
-                "title": "Cut 50+ bps Prob (%)"
-            },
-            "statementHtml": {
-                "type": "string",
-                "title": "Statement URL"
-            },
-            "statementPdf": {
-                "type": "string",
-                "title": "PDF URL"
-            }
-        }
-    },
+    "name": "fomc-meetings-dataset",
+    "title": "FOMC Meetings & Fed Policy Intelligence Dataset",
+    "description": "Comprehensive institutional dataset of Federal Reserve FOMC meeting schedules, SEP dot plot projections, interest rate changes, countdowns, FedWatch probabilities, and net liquidity dynamics.",
     "views": {
         "overview": {
             "title": "FOMC Meetings Overview",
@@ -73,15 +15,17 @@
                     "daysRemaining",
                     "hasSepProjections",
                     "currentFedRate",
+                    "lastChangeBps",
                     "impliedPauseProbPct",
                     "impliedCut25ProbPct",
                     "impliedCut50ProbPct",
+                    "actionSummary",
                     "statementHtml"
                 ]
             },
             "display": {
                 "component": "table",
-                "columns": {
+                "properties": {
                     "meetingDates": {
                         "label": "Meeting Dates",
                         "format": "text"
@@ -104,19 +48,27 @@
                     },
                     "currentFedRate": {
                         "label": "Fed Rate %",
-                        "format": "percentage"
+                        "format": "number"
+                    },
+                    "lastChangeBps": {
+                        "label": "Last Change (bps)",
+                        "format": "number"
                     },
                     "impliedPauseProbPct": {
                         "label": "Pause %",
-                        "format": "percentage"
+                        "format": "number"
                     },
                     "impliedCut25ProbPct": {
                         "label": "Cut 25bps %",
-                        "format": "percentage"
+                        "format": "number"
                     },
                     "impliedCut50ProbPct": {
                         "label": "Cut 50bps %",
-                        "format": "percentage"
+                        "format": "number"
+                    },
+                    "actionSummary": {
+                        "label": "Action",
+                        "format": "text"
                     },
                     "statementHtml": {
                         "label": "Statement Link",
