@@ -1,6 +1,5 @@
 {
     "actorSpecification": 1,
-    "name": "fomc-meetings-dataset",
     "title": "FOMC Meetings & Fed Policy Intelligence Dataset",
     "description": "Comprehensive institutional dataset of Federal Reserve FOMC meeting schedules, SEP dot plot projections, interest rate changes, countdowns, FedWatch probabilities, and net liquidity dynamics.",
     "views": {
