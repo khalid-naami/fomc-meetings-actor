@@ -1,7 +1,133 @@
 {
     "actorSpecification": 1,
-    "title": "FOMC Meetings & Fed Policy Intelligence Dataset",
-    "description": "Comprehensive institutional dataset of Federal Reserve FOMC meeting schedules, SEP dot plot projections, interest rate changes, countdowns, FedWatch probabilities, and net liquidity dynamics.",
+    "fields": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "additionalProperties": true,
+        "required": [],
+        "properties": {
+            "recordType": {
+                "type": "string",
+                "title": "Record Type",
+                "nullable": true
+            },
+            "year": {
+                "type": "integer",
+                "title": "Calendar Year",
+                "nullable": true
+            },
+            "meetingDates": {
+                "type": "string",
+                "title": "Meeting Dates",
+                "nullable": true
+            },
+            "meetingStartDate": {
+                "type": "string",
+                "title": "Date",
+                "nullable": true
+            },
+            "meetingEndDate": {
+                "type": "string",
+                "title": "End Date",
+                "nullable": true
+            },
+            "status": {
+                "type": "string",
+                "title": "Status",
+                "nullable": true
+            },
+            "daysRemaining": {
+                "type": "number",
+                "title": "Days Left",
+                "nullable": true
+            },
+            "hasSepProjections": {
+                "type": "boolean",
+                "title": "SEP Dot Plot",
+                "nullable": true
+            },
+            "currentFedRate": {
+                "type": "number",
+                "title": "Fed Rate %",
+                "nullable": true
+            },
+            "lastChangeBps": {
+                "type": "number",
+                "title": "Last Change (bps)",
+                "nullable": true
+            },
+            "lastChangeDate": {
+                "type": "string",
+                "title": "Last Change Date",
+                "nullable": true
+            },
+            "impliedPauseProbPct": {
+                "type": "number",
+                "title": "Pause %",
+                "nullable": true
+            },
+            "impliedCut25ProbPct": {
+                "type": "number",
+                "title": "Cut 25bps %",
+                "nullable": true
+            },
+            "impliedCut50ProbPct": {
+                "type": "number",
+                "title": "Cut 50bps %",
+                "nullable": true
+            },
+            "actionSummary": {
+                "type": "string",
+                "title": "Action",
+                "nullable": true
+            },
+            "assetDecisionDayReturns": {
+                "type": "object",
+                "title": "Decision Day Asset Returns (%)",
+                "nullable": true,
+                "additionalProperties": true
+            },
+            "statementHtml": {
+                "type": "string",
+                "title": "Statement Link",
+                "nullable": true
+            },
+            "statementPdf": {
+                "type": "string",
+                "title": "Statement PDF",
+                "nullable": true
+            },
+            "minutesHtml": {
+                "type": "string",
+                "title": "Minutes HTML",
+                "nullable": true
+            },
+            "minutesPdf": {
+                "type": "string",
+                "title": "Minutes PDF",
+                "nullable": true
+            },
+            "statementParagraphs": {
+                "type": "array",
+                "title": "Statement Paragraphs",
+                "nullable": true,
+                "items": {
+                    "type": "string"
+                }
+            },
+            "fedNetLiquidity": {
+                "type": "object",
+                "title": "Fed Net Liquidity",
+                "nullable": true,
+                "additionalProperties": true
+            },
+            "calculatedAt": {
+                "type": "string",
+                "title": "Calculated At",
+                "nullable": true
+            }
+        }
+    },
     "views": {
         "overview": {
             "title": "FOMC Meetings Overview",
