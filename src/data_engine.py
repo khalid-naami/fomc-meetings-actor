@@ -91,7 +91,7 @@ def fetch_scraped_fomc_meetings() -> list:
             month = re.sub(r'[^a-zA-Z]', '', month_div.get_text().strip())
             dates = re.sub(r'[^0-9\-–]', '', date_div.get_text().strip())
             
-            year = datetime.datetime.now().year
+            year = datetime.datetime.now(datetime.timezone.utc).year
             parent = row.find_parent('div', class_='panel')
             if parent:
                 heading = parent.find('a')
