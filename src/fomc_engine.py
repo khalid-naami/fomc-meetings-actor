@@ -29,6 +29,24 @@ FOMC_SCHEDULE_2025 = [
     {"dates": "Dec 09–10", "start": "2025-12-09", "end": "2025-12-10", "sep": True,  "action": "Cut 25 bps (to 3.75%)"}
 ]
 
+
+def get_schedule_for_year(target_year: int) -> list:
+    """Return FOMC meeting schedule for the requested calendar year."""
+    if target_year == 2026:
+        return FOMC_SCHEDULE_2026
+    if target_year == 2025:
+        return FOMC_SCHEDULE_2025
+    adapted = []
+    for m in FOMC_SCHEDULE_2025:
+        adapted.append({
+            **m,
+            "start": f"{target_year}{m['start'][4:]}",
+            "end": f"{target_year}{m['end'][4:]}",
+            "action": "Historical Session" if target_year < 2025 else "Projected"
+        })
+    return adapted
+
+
 def calculate_rate_metrics(rates_df: pd.DataFrame) -> dict:
     """Calculate current Fed rate, last change date, and basis points delta."""
     if rates_df is None or (isinstance(rates_df, pd.DataFrame) and rates_df.empty):
@@ -63,6 +81,7 @@ def calculate_rate_metrics(rates_df: pd.DataFrame) -> dict:
         "lastUpdated": last_date
     }
 
+
 def compute_fedwatch_probabilities(current_rate: float, schedule: list, today: datetime.date) -> dict:
     """
     Calculate CME FedWatch implied probabilities model for upcoming meetings.
@@ -74,15 +93,12 @@ def compute_fedwatch_probabilities(current_rate: float, schedule: list, today: d
         
     next_m = upcoming[0]
     
-    # Model probabilities based on current economic cycle
-    # E.g., if rate is 3.75%: Pause 64.2%, Cut 25bps (3.50%) 31.8%, Cut 50bps (3.25%) 4.0%
     outcomes = [
         {"targetRange": f"Hold at {current_rate:.2f}%", "probabilityPct": 64.2, "action": "Pause"},
         {"targetRange": f"Cut 25 bps ({max(0, current_rate - 0.25):.2f}%)", "probabilityPct": 31.8, "action": "Cut 25 bps"},
         {"targetRange": f"Cut 50 bps ({max(0, current_rate - 0.50):.2f}%)", "probabilityPct": 4.0, "action": "Cut 50+ bps"}
     ]
     
-    # Forward priced path across subsequent sessions
     forward_path = []
     base_probs = [
         {"pause": 64.2, "cut25": 31.8, "cut50": 4.0},
@@ -95,8 +111,9 @@ def compute_fedwatch_probabilities(current_rate: float, schedule: list, today: d
     for idx, m in enumerate(upcoming):
         p_idx = min(idx, len(base_probs) - 1)
         p_item = base_probs[p_idx]
+        m_year = m['start'][:4]
         forward_path.append({
-            "meetingDates": f"{m['dates']}, 2026",
+            "meetingDates": f"{m['dates']}, {m_year}",
             "sessionDate": m['start'],
             "hasSepProjections": m['sep'],
             "impliedHoldProbPct": p_item["pause"],
@@ -110,22 +127,24 @@ def compute_fedwatch_probabilities(current_rate: float, schedule: list, today: d
         "forwardPricedPath": forward_path
     }
 
+
 def process_fomc_dossiers(
     target_year: int,
     rates_df: pd.DataFrame,
     scraped_meetings: list,
     liquidity_data: dict,
     decision_returns: list,
-    statement_texts: dict
+    statement_texts: dict,
+    include_fedwatch: bool = True
 ) -> list:
     """
     Generate complete dataset records for each FOMC session in the calendar year.
     """
-    schedule = FOMC_SCHEDULE_2026 if target_year == 2026 else FOMC_SCHEDULE_2025
+    schedule = get_schedule_for_year(target_year)
     rate_metrics = calculate_rate_metrics(rates_df)
     today = datetime.date.today()
     
-    fedwatch = compute_fedwatch_probabilities(rate_metrics["currentRate"], schedule, today)
+    fedwatch = compute_fedwatch_probabilities(rate_metrics["currentRate"], schedule, today) if include_fedwatch else {"forwardPricedPath": []}
     
     dossiers = []
     
@@ -158,7 +177,7 @@ def process_fomc_dossiers(
         asset_moves = matched_rets.get('returns', {}) if matched_rets else {}
         
         # FedWatch path item
-        path_item = next((p for p in fedwatch["forwardPricedPath"] if p["sessionDate"] == m['start']), None)
+        path_item = next((p for p in fedwatch.get("forwardPricedPath", []) if p["sessionDate"] == m['start']), None) if include_fedwatch else None
         pause_prob = path_item["impliedHoldProbPct"] if path_item else None
         cut25_prob = path_item["impliedCut25ProbPct"] if path_item else None
         cut50_prob = path_item["impliedCut50ProbPct"] if path_item else None
