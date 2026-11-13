@@ -1,0 +1,15 @@
+{
+    "actorKeyValueStoreSchemaVersion": 1,
+    "title": "FOMC Meetings & Fed Policy Key-Value Store",
+    "description": "Summary report for FOMC Meetings & Fed Policy Intelligence.",
+    "collections": {
+        "output": {
+            "title": "FOMC Policy Summary",
+            "description": "Executive summary of FOMC schedule, current Fed rate, next scheduled session, Net Liquidity, and decision-day asset reactions.",
+            "key": "OUTPUT",
+            "contentTypes": [
+                "application/json"
+            ]
+        }
+    }
+}
